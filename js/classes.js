@@ -1,4 +1,8 @@
-class Task {
+import * as utils from "./utils.js"
+import { gameData, applySpeed } from "./main.js"
+import { itemCategories } from "./mod.js"
+
+export class Task {
     constructor(baseData) {
         this.baseData = baseData
         this.name = baseData.name
@@ -40,7 +44,7 @@ class Task {
         if (this.isFinished)
             return 0
 
-        return (this.isHero ? getHeroXpGainMultipliers(this) : 1) * applyMultipliers(10, this.xpMultipliers)
+        return (this.isHero ? getHeroXpGainMultipliers(this) : 1) * utils.applyMultipliers(10, this.xpMultipliers)
     }
 
     increaseXp() {
@@ -73,7 +77,7 @@ class Task {
     }
 }
 
-class Milestone {
+export class Milestone {
     constructor(baseData) {
         this.baseData = baseData
         this.name = baseData.name
@@ -85,7 +89,7 @@ class Milestone {
     getTier() { return this.tier }
 }
 
-class Job extends Task {
+export class Job extends Task {
     constructor(baseData) {
         super(baseData)   
         this.incomeMultipliers = []
@@ -99,11 +103,11 @@ class Job extends Task {
         return (this.isHero ? heroIncomeMult
             * (this.baseData.heroxp > 78 ? 1e6 : 1)
             * (this.baseData.heroxp > 130 ? 1e5 : 1)
-            : 1) * applyMultipliers(this.baseData.income, this.incomeMultipliers) 
+            : 1) * utils.applyMultipliers(this.baseData.income, this.incomeMultipliers) 
     }
 }
 
-class Skill extends Task {
+export class Skill extends Task {
     constructor(baseData) {
         super(baseData)
     }
@@ -118,7 +122,7 @@ class Skill extends Task {
     }
 }
 
-class Item {
+export class Item {
     constructor(baseData) {  
         this.baseData = baseData
         this.name = baseData.name
@@ -172,12 +176,12 @@ class Item {
             if (itemCategories["Properties"].includes(this.name)) description = "Happiness"
         }
 
-        return "x" + format(effect) + " " + description
+        return "x" + utils.format(effect) + " " + description
     }
 
     getExpense() {
         return (this.isHero ? 4 * Math.pow(10, this.baseData.heromult) * heroIncomeMult : 1) 
-            * applyMultipliers(this.baseData.expense, this.expenseMultipliers) 
+            * utils.applyMultipliers(this.baseData.expense, this.expenseMultipliers) 
     }
 }
 
@@ -209,7 +213,7 @@ class Requirement {
     }
 }
 
-class TaskRequirement extends Requirement {
+export class TaskRequirement extends Requirement {
     constructor(elements, requirements) {
         super(elements, requirements)
         this.type = "task"
@@ -225,7 +229,7 @@ class TaskRequirement extends Requirement {
     }
 }
 
-class CoinRequirement extends Requirement {
+export class CoinRequirement extends Requirement {
     constructor(elements, requirements) {
         super(elements, requirements)
         this.type = "coins"
@@ -236,18 +240,18 @@ class CoinRequirement extends Requirement {
     }
 }
 
-class AgeRequirement extends Requirement {
+export class AgeRequirement extends Requirement {
     constructor(elements, requirements) {
         super(elements, requirements)
         this.type = "age"
     }
 
     getCondition(isHero, requirement) {
-        return daysToYears(gameData.days) >= requirement.requirement
+        return utils.daysToYears(gameData.days) >= requirement.requirement
     }
 }
 
-class EvilRequirement extends Requirement {
+export class EvilRequirement extends Requirement {
     constructor(elements, requirements) {
         super(elements, requirements)
         this.type = "evil"
@@ -258,7 +262,7 @@ class EvilRequirement extends Requirement {
     }    
 }
 
-class EssenceRequirement extends Requirement {
+export class EssenceRequirement extends Requirement {
     constructor(elements, requirements) {
         super(elements, requirements)
         this.type = "essence"

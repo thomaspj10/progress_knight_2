@@ -1,4 +1,15 @@
-function format(number, decimals = 1) {
+import { gameData } from "./main.js";
+
+/**
+ * 
+ * @param {number} number 
+ * @param {number} decimals 
+ * @returns {string}
+ */
+export function format(number, decimals = 1) {
+    const units = ["", "k", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "O", "N", "D", "Ud", "Dd", "Td", "Qad", "Qid", "Sxd", "Spd", "Od", "Nd", "V", "Uv", "Dv", "Tv",
+    "Qav", "Qiv", "Sxv", "Spv", "Ov", "Nv", "Tr", "Ut", "Dt", "Tt"]
+
     // what tier? (determines SI symbol)
     const tier = Math.log10(number) / 3 | 0;
     if (tier == 0) return number.toFixed(decimals);
@@ -19,7 +30,12 @@ function format(number, decimals = 1) {
     }
 }
 
-function formatCoins(coins, element) {
+/**
+ * 
+ * @param {number} coins 
+ * @param {HTMLElement} element 
+ */
+export function formatCoins(coins, element) {
     const platina = Math.floor(coins / 1e6)
     const gold = Math.floor((coins - platina * 1e6) / 1e4)
     const silver = Math.floor((coins - platina * 1e6 - gold * 1e4) / 100)
@@ -45,7 +61,13 @@ function formatCoins(coins, element) {
     }    
 }
 
-function formatTime(sec_num, show_ms=false) {
+/**
+ * 
+ * @param {number} sec_num 
+ * @param {boolean} show_ms 
+ * @returns string
+ */
+export function formatTime(sec_num, show_ms = false) {
     if (sec_num == null) {
         return "unknown"
     }
@@ -62,7 +84,12 @@ function formatTime(sec_num, show_ms=false) {
     return hours + ':' + minutes + ':' + seconds + mss   
 }
 
-function formatAge(days) {
+/**
+ * 
+ * @param {number} days 
+ * @returns {string}
+ */
+export function formatAge(days) {
     const years = daysToYears(days)
     const day = getCurrentDay(days)
     if (years > 10000)    
@@ -71,26 +98,71 @@ function formatAge(days) {
         return "Age " + years + " Day " + day
 }
 
-function getBaseLog(x, y) {
+/**
+ * 
+ * @param {number} x 
+ * @param {number} y 
+ * @returns {number}
+ */
+export function getBaseLog(x, y) {
     return Math.log(y) / Math.log(x);
 }
 
-function yearsToDays(years) {
+/**
+ * 
+ * @param {number} years 
+ * @returns {number}
+ */
+export function yearsToDays(years) {
     return years * 365
 }
 
-function daysToYears(days) {
+/**
+ * 
+ * @param {number} days 
+ * @returns {number}
+ */
+export function daysToYears(days) {
     return Math.floor(days / 365)
 }
- 
-function getCurrentDay(days) {
+
+/**
+ * 
+ * @param {number} days 
+ * @returns {number}
+ */
+export function getCurrentDay(days) {
     return Math.floor(days - daysToYears(days) * 365)
 }
 
-function getElementsByClass(className) {
+/**
+ * 
+ * @param {string} className 
+ * @returns {HTMLCollectionOf<Element>}
+ */
+export function getElementsByClass(className) {
     return document.getElementsByClassName(removeSpaces(className))
 }
 
-function removeSpaces(string) {
+/**
+ * 
+ * @param {string} string 
+ * @returns {string}
+ */
+export function removeSpaces(string) {
     return string.replace(/ /g, "")
+}
+
+/**
+ * 
+ * @param {number} value 
+ * @param {Array<() => number>} multipliers 
+ * @returns 
+ */
+export function applyMultipliers(value, multipliers) {
+    var finalMultiplier = 1
+    multipliers.forEach((multiplierFunction) => {
+        finalMultiplier *= multiplierFunction()
+    })
+    return value * finalMultiplier
 }

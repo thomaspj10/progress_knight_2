@@ -368,9 +368,9 @@
                     <div class="tab" id="settings">
                         <div id="columnSettings" class="column">
                             <div id="tabcolumnSettings" class="panel w3-margin-left settings-tab-column">
-                                <div class="w3-button w3-bar-item tabButtonSettings baritem w3-blue-gray" id="settingsTabTabButton" onClick="setTabSettings('settingsTab')">Settings</div>
-                                <div class="w3-button w3-bar-item tabButtonSettings baritem" id="statsTabTabButton" onClick="setTabSettings('statsTab')">Stats</div>
-                                <div class="w3-button w3-bar-item tabButtonSettings baritem" id="changelogTabTabButton" onClick="setTabSettings('changelogTab')">Changelog</div>
+                                <div class="w3-button w3-bar-item tabButtonSettings baritem w3-blue-gray" id="settingsTabTabButton" onClick="setSettingsTab('settingsTab')">Settings</div>
+                                <div class="w3-button w3-bar-item tabButtonSettings baritem" id="statsTabTabButton" onClick="setSettingsTab('statsTab')">Stats</div>
+                                <div class="w3-button w3-bar-item tabButtonSettings baritem" id="changelogTabTabButton" onClick="setSettingsTab('changelogTab')">Changelog</div>
                             </div>
                             <div id="maincolumnSettings" class="panel w3-margin-left w3-margin-top w3-padding settings-main-column">
                                 <div id="settingsTab" class="tabSettings">
@@ -390,7 +390,7 @@
                                                 <table class="w3-table w3-bordered">
                                                     <tr>
                                                         <td style="padding: 0.4em; width:15em">Sticky sidebar</td>
-                                                        <td><input id="settingsStickySidebar" type="checkbox" style="width:1.6em;height:1.6em" onclick="setStickySidebar(this.checked)" /></td>
+                                                        <td><input id="settingsStickySidebar" type="checkbox" style="width:1.6em;height:1.6em" onclick="setIsStickySidebar(this.checked)" /></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Numbers notation</td>
@@ -504,11 +504,8 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="js/utils.js"></script>
-    <script type="text/javascript" src="js/ui.js"></script>
     <script type="text/javascript" src="js/math.js"></script>
     <script type="text/javascript" src="js/HackTimer.js"></script>
-    <script type="text/javascript" src="js/classes.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>
